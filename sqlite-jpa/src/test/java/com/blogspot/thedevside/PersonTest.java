@@ -6,6 +6,8 @@ import javax.persistence.Persistence;
 
 import junit.framework.Assert;
 
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -23,7 +25,7 @@ public class PersonTest {
 	}
 	
 	@Before
-	public void entityManager() {
+	public void initEntityManager() {
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
 	}
@@ -106,6 +108,16 @@ public class PersonTest {
 			e.printStackTrace();
 			Assert.fail();
 		}
+	}
+	
+	@After
+	public void closeEntityManager() {
+		em.close();
+	}
+	
+	@AfterClass
+	public static void closeEntityManagerFactory() {
+		emf.close();
 	}
 	
 }
