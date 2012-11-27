@@ -14,6 +14,10 @@ import org.junit.Test;
 
 import com.blogspot.thedevside.entity.Person;
 
+/**
+ * @author Josue Junior
+ *
+ */
 public class PersonTest {
 	
 	static EntityManagerFactory emf;
