@@ -9,8 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * @author Josue Junior
- *
+ * 
+ * @author Josue R G Junior josueribeiro.jr@gmail.com
  */
 @Entity
 public class Person implements Serializable {

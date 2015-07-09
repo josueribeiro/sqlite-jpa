@@ -2,6 +2,7 @@ package com.blogspot.thedevside;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 
 import junit.framework.Assert;
@@ -94,6 +95,39 @@ public class PersonTest {
 	}
 	
 	@Test
+	public void testFindByReference(){
+		try {
+			
+			//Find by id in database
+			Integer personId = 10;
+			Person person = em.getReference(Person.class, personId); //See file import.sql
+			
+			Assert.assertEquals(personId, person.getId());
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void testFindByReferenceEntityNotFound(){
+		try {
+			
+			//Find by id in database
+			Integer personId = 111; // id not exists
+			Person person = em.getReference(Person.class, personId); 
+			
+			if (person.getId().equals(personId)) {
+				Assert.fail("A exception EntityNotFoundException should be throw");
+			}
+			
+		} catch (EntityNotFoundException e) {
+			Assert.assertTrue(true);
+		}
+	}
+	
+	@Test
 	public void testRemove(){
 		try {
 			
@@ -101,7 +135,7 @@ public class PersonTest {
 			Integer personId = 10;
 			Person person = em.find(Person.class, personId); //See file import.sql
 			em.remove(person);
-			em.getTransaction().commit();
+			em.getTransaction().commit(); //TODO java.sql.SQLException: database is locked (sometimes)
 			
 			//Find by id
 			Person personDB = em.find(Person.class, personId); //See file import.sql
