@@ -16,7 +16,7 @@
 
 	<dependencies>
 
-
+		<!--ESTO ES UNA PRUEBA PARA UN COMMIT EN GI-->
 		<!-- Hibernate & JPA -->
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
