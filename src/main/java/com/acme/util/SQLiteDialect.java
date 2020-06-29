@@ -1,4 +1,4 @@
-package com.blogspot.thedevside.util;
+package com.acme.util;
 
 import java.sql.Types;
 
@@ -9,8 +9,7 @@ import org.hibernate.dialect.function.StandardSQLFunction;
 import org.hibernate.dialect.function.VarArgsSQLFunction;
 
 /**
- * @author Josue Junior
- * 
+ * @author josueribeiro@github.com
  */
 public class SQLiteDialect extends Dialect {
 
@@ -40,14 +39,10 @@ public class SQLiteDialect extends Dialect {
 		registerColumnType(Types.CLOB, "clob");
 		registerColumnType(Types.BOOLEAN, "integer");
 
-		registerFunction("concat", new VarArgsSQLFunction(Hibernate.STRING, "",
-				"||", ""));
-		registerFunction("mod", new SQLFunctionTemplate(Hibernate.INTEGER,
-				"?1 % ?2"));
-		registerFunction("substr", new StandardSQLFunction("substr",
-				Hibernate.STRING));
-		registerFunction("substring", new StandardSQLFunction("substr",
-				Hibernate.STRING));
+		registerFunction("concat", new VarArgsSQLFunction(Hibernate.STRING, "", "||", ""));
+		registerFunction("mod", new SQLFunctionTemplate(Hibernate.INTEGER, "?1 % ?2"));
+		registerFunction("substr", new StandardSQLFunction("substr", Hibernate.STRING));
+		registerFunction("substring", new StandardSQLFunction("substr", Hibernate.STRING));
 	}
 
 	public boolean supportsIdentityColumns() {
@@ -55,19 +50,18 @@ public class SQLiteDialect extends Dialect {
 	}
 
 	/*
-	 * public boolean supportsInsertSelectIdentity() { return true; // As
-	 * specify in NHibernate dialect }
+	 * public boolean supportsInsertSelectIdentity() { return true; // As specify in
+	 * NHibernate dialect }
 	 */
-
 	public boolean hasDataTypeInIdentityColumn() {
 		return false; // As specify in NHibernate dialect
 	}
 
 	/*
-	 * public String appendIdentitySelectToInsert(String insertString) { return
-	 * new StringBuffer(insertString.length()+30). // As specify in NHibernate
-	 * dialect append(insertString).
-	 * append("; ").append(getIdentitySelectString()). toString(); }
+	 * public String appendIdentitySelectToInsert(String insertString) { return new
+	 * StringBuffer(insertString.length()+30). // As specify in NHibernate dialect
+	 * append(insertString). append("; ").append(getIdentitySelectString()).
+	 * toString(); }
 	 */
 
 	public String getIdentityColumnString() {
@@ -84,8 +78,7 @@ public class SQLiteDialect extends Dialect {
 	}
 
 	protected String getLimitString(String query, boolean hasOffset) {
-		return new StringBuffer(query.length() + 20).append(query)
-				.append(hasOffset ? " limit ? offset ?" : " limit ?")
+		return new StringBuffer(query.length() + 20).append(query).append(hasOffset ? " limit ? offset ?" : " limit ?")
 				.toString();
 	}
 
@@ -138,20 +131,16 @@ public class SQLiteDialect extends Dialect {
 	}
 
 	public String getDropForeignKeyString() {
-		throw new UnsupportedOperationException(
-				"No drop foreign key syntax supported by SQLiteDialect");
+		throw new UnsupportedOperationException("No drop foreign key syntax supported by SQLiteDialect");
 	}
 
-	public String getAddForeignKeyConstraintString(String constraintName,
-			String[] foreignKey, String referencedTable, String[] primaryKey,
-			boolean referencesPrimaryKey) {
-		throw new UnsupportedOperationException(
-				"No add foreign key syntax supported by SQLiteDialect");
+	public String getAddForeignKeyConstraintString(String constraintName, String[] foreignKey, String referencedTable,
+			String[] primaryKey, boolean referencesPrimaryKey) {
+		throw new UnsupportedOperationException("No add foreign key syntax supported by SQLiteDialect");
 	}
 
 	public String getAddPrimaryKeyConstraintString(String constraintName) {
-		throw new UnsupportedOperationException(
-				"No add primary key syntax supported by SQLiteDialect");
+		throw new UnsupportedOperationException("No add primary key syntax supported by SQLiteDialect");
 	}
 
 	public boolean supportsIfExistsBeforeTableName() {

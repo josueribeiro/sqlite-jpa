@@ -7,17 +7,15 @@
 		
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		
-		<class>com.blogspot.thedevside.entity.Person</class>
-		
 		<properties>
 		
-            <property name="hibernate.dialect" value="com.blogspot.thedevside.util.SQLiteDialect"/>
+            <property name="hibernate.dialect" value="com.acme.util.SQLiteDialect"/>
 			<property name="hibernate.hbm2ddl.auto" value="create"/>
 			<property name="hibernate.show_sql" value="true"/>
 			<property name="hibernate.format_sql" value="false"/>
 			
 			<property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:sqlite:thedevside.db"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:sqlite:sqllite-database-test.db"/>
 			
         </properties>
         

@@ -1,4 +1,4 @@
-package com.blogspot.thedevside.entity;
+package com.acme.entities;
 
 import java.io.Serializable;
 
@@ -10,7 +10,7 @@ import javax.persistence.Id;
 
 /**
  * 
- * @author Josue R G Junior josueribeiro.jr@gmail.com
+ * @author josueribeiro
  */
 @Entity
 public class Person implements Serializable {
