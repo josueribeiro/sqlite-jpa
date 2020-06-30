@@ -7,20 +7,28 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 /**
  * 
  * @author josueribeiro
  */
 @Entity
+@Table(name = "person")
 public class Person implements Serializable {
 
 	private static final long serialVersionUID = -7250234396452258822L;
 
 	@Id
+	@TableGenerator(name = "gen_person", 
+	                table = "table_keys", 
+	                pkColumnName = "name_table", 
+	                valueColumnName = "cod_key", 
+	                pkColumnValue = "person", allocationSize = 1, initialValue = 1)
+	@GeneratedValue(generator = "gen_person", strategy = GenerationType.TABLE)
 	@Column(name = "id_person")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id; 
+	private Integer id;
 	private String name;
 	private Integer age;
 

@@ -2,7 +2,6 @@ package com.acme.entities;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 
 import org.junit.After;
@@ -29,7 +28,6 @@ public class PersonTest {
 	@Before
 	public void initEntityManager() {
 		em = emf.createEntityManager();
-		em.getTransaction().begin();
 	}
 
 	@Test
@@ -39,6 +37,7 @@ public class PersonTest {
 			// Persist in database
 			Person person = new Person();
 			person.setName("person2");
+			em.getTransaction().begin();
 			em.persist(person);
 			em.getTransaction().commit();
 
@@ -62,6 +61,7 @@ public class PersonTest {
 			person.setAge(22);
 
 			// Persist in database
+			em.getTransaction().begin();
 			em.merge(person);
 			em.getTransaction().commit();
 
@@ -80,7 +80,7 @@ public class PersonTest {
 		try {
 
 			// Find by id in database
-			Integer personId = 10;
+			Integer personId = 11;
 			Person person = em.find(Person.class, personId); // See file import.sql
 
 			Assert.assertEquals(personId, person.getId());
@@ -108,29 +108,13 @@ public class PersonTest {
 	}
 
 	@Test
-	public void testFindByReferenceEntityNotFound() {
-		try {
-
-			// Find by id in database
-			Integer personId = 111; // id not exists
-			Person person = em.getReference(Person.class, personId);
-
-			if (person.getId().equals(personId)) {
-				Assert.fail("A exception EntityNotFoundException should be throw");
-			}
-
-		} catch (EntityNotFoundException e) {
-			Assert.assertTrue(true);
-		}
-	}
-
-	@Test
 	public void testRemove() {
 		try {
 
 			// Find by id in database and remove
 			Integer personId = 10;
 			Person person = em.find(Person.class, personId); // See file import.sql
+			em.getTransaction().begin();
 			em.remove(person);
 			em.getTransaction().commit(); // TODO java.sql.SQLException: database is locked (sometimes)
 
@@ -148,6 +132,7 @@ public class PersonTest {
 	@After
 	public void closeEntityManager() {
 		em.close();
+		em = null;
 	}
 
 	@AfterClass
